@@ -267,7 +267,43 @@ canvas.chart { width: 100%!important; height: 100%!important; }
 
 /* ─── PROFILE MODAL ─── */
 .profile-avatar-section { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.3rem; padding: 1rem; background: rgba(87,16,209,.1); border-radius: 12px; border: 1px solid var(--borda); }
-.profile-avatar-preview { width: 54px; height: 54px; border-radius: 50%; background: linear-gradient(135deg,#8b00e8,var(--roxo-mid)); display: flex; align-items: center; justify-content: center; font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--dourado); font-weight: 700; border: 2px solid var(--dourado-dim); flex-shrink: 0; }
+
+/* photo wrap */
+.profile-photo-wrap { position: relative; flex-shrink: 0; width: 72px; height: 72px; }
+.profile-avatar-preview {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: linear-gradient(135deg,#8b00e8,var(--roxo-mid));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--dourado); font-weight: 700;
+  border: 2px solid var(--dourado-dim);
+  object-fit: cover; /* when it becomes an <img> */
+  overflow: hidden;
+}
+.profile-avatar-preview img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
+
+/* camera overlay */
+.profile-photo-overlay {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: rgba(0,0,0,.55);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 2px;
+  cursor: pointer;
+  opacity: 0; transition: opacity .2s;
+  font-size: .55rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+  color: #fff;
+}
+.profile-photo-wrap:hover .profile-photo-overlay { opacity: 1; }
+
+/* remove button */
+.profile-photo-remove {
+  position: absolute; top: -3px; right: -3px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--vermelho); border: 1.5px solid var(--fundo);
+  color: #fff; font-size: .65rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .2s;
+}
+.profile-photo-remove:hover { transform: scale(1.15); }
 
 /* ─── MODALS ─── */
 .modal-overlay { position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,.7); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .3s; }

@@ -48,12 +48,12 @@ const api = {
 // ─── STATE ──────────────────────────────────────────────────
 let state = {
   profile: {
-    nome: 'George',
-    sobrenome: 'L.',
-    email: 'george@cronos.app',
-    cargo: 'Admin',
-    empresa: 'Cronos',
-    avatar: 'GL',
+    nome: '',
+    sobrenome: '',
+    email: '',
+    cargo: '',
+    empresa: '',
+    avatar: '',
     color: 'linear-gradient(135deg,#8b00e8,#5710d1)',
     hash: generateHash(),
   },
@@ -264,41 +264,132 @@ document.addEventListener('click', (e) => {
 });
 
 // ─── PROFILE ────────────────────────────────────────────────
+// ─── PROFILE CHIP (sidebar) ──────────────────────────────────
 function renderProfileChip() {
-  const p = state.profile;
+  const p  = state.profile;
   const av = document.getElementById('loggedAvatar');
   const nm = document.getElementById('loggedName');
   const rl = document.getElementById('loggedRole');
-  if (av) { av.textContent = initials(p.nome, p.sobrenome); av.style.background = p.color; }
+  if (av) {
+    if (p.photo) {
+      // show photo in sidebar chip
+      av.innerHTML = `<img src="${p.photo}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block"/>`;
+      av.style.background = 'transparent';
+    } else {
+      av.innerHTML = initials(p.nome, p.sobrenome);
+      av.style.background = p.color;
+    }
+  }
   if (nm) nm.textContent = `${p.nome} ${p.sobrenome}.`;
   if (rl) rl.textContent = `${p.cargo} · ${p.empresa}`;
 }
 
+// ─── PROFILE MODAL ──────────────────────────────────────────
+// Temp holds a new photo selected but not yet saved
+let _pendingPhoto = null;
+
+function syncProfilePreview() {
+  // live-update the big avatar inside the modal
+  const p    = state.profile;
+  const prev = document.getElementById('profileAvatarPreview');
+  const nm   = document.getElementById('profilePreviewName');
+  const rl   = document.getElementById('profilePreviewRole');
+  const rmBtn = document.getElementById('btnRemovePhoto');
+
+  const nome  = document.getElementById('profileNome')?.value.trim()  || p.nome  || '';
+  const sob   = document.getElementById('profileSob')?.value.trim()   || p.sobrenome || '';
+  const cargo = document.getElementById('profileCargo')?.value.trim() || p.cargo || '';
+  const emp   = document.getElementById('profileEmpresa')?.value.trim()|| p.empresa || '';
+  const color = document.getElementById('profileColor')?.value         || p.color;
+  const photo = _pendingPhoto !== null ? _pendingPhoto : (p.photo || null);
+
+  if (prev) {
+    if (photo) {
+      prev.innerHTML = `<img src="${photo}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block"/>`;
+      prev.style.background = 'transparent';
+    } else {
+      prev.innerHTML = initials(nome, sob);
+      prev.style.background = color;
+    }
+  }
+  if (rmBtn) rmBtn.style.display = photo ? '' : 'none';
+  if (nm) nm.textContent = `${nome} ${sob}.`;
+  if (rl) rl.textContent = `${cargo} · ${emp}`;
+}
+
 function openProfileModal() {
   const p = state.profile;
-  document.getElementById('profileNome').value     = p.nome || '';
-  document.getElementById('profileSob').value      = p.sobrenome || '';
-  document.getElementById('profileEmail').value    = p.email || '';
-  document.getElementById('profileCargo').value    = p.cargo || '';
-  document.getElementById('profileEmpresa').value  = p.empresa || '';
-  document.getElementById('profileColor').value    = p.color || '';
+  _pendingPhoto = null;   // reset pending photo on open
+  document.getElementById('profileNome').value      = p.nome || '';
+  document.getElementById('profileSob').value       = p.sobrenome || '';
+  document.getElementById('profileEmail').value     = p.email || '';
+  document.getElementById('profileCargo').value     = p.cargo || '';
+  document.getElementById('profileEmpresa').value   = p.empresa || '';
+  document.getElementById('profileColor').value     = p.color || '';
   document.getElementById('profileHashDisplay').textContent = p.hash || '—';
+  // clear file input so same file can be re-selected
+  const fi = document.getElementById('profilePhotoInput');
+  if (fi) fi.value = '';
+  syncProfilePreview();
   openModal('modalProfile');
 }
 
 document.getElementById('userChipBtn')?.addEventListener('click', openProfileModal);
 
+// Live preview while typing name / changing color
+['profileNome','profileSob','profileCargo','profileEmpresa'].forEach(id => {
+  document.getElementById(id)?.addEventListener('input', syncProfilePreview);
+});
+document.getElementById('profileColor')?.addEventListener('change', syncProfilePreview);
+
+// Photo file input → FileReader → base64 preview
+document.getElementById('profilePhotoInput')?.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (file.size > 2 * 1024 * 1024) {
+    toast('Foto muito grande. Máximo 2 MB.', 'error');
+    e.target.value = '';
+    return;
+  }
+  const allowed = ['image/jpeg','image/png','image/webp','image/gif'];
+  if (!allowed.includes(file.type)) {
+    toast('Formato inválido. Use JPG, PNG ou WEBP.', 'error');
+    e.target.value = '';
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    _pendingPhoto = ev.target.result;   // base64 data URL
+    syncProfilePreview();
+    toast('Foto carregada! Salve o perfil para confirmar.', 'info');
+  };
+  reader.readAsDataURL(file);
+});
+
+// Remove photo button
+document.getElementById('btnRemovePhoto')?.addEventListener('click', () => {
+  _pendingPhoto = '';   // empty string = explicitly removed
+  const fi = document.getElementById('profilePhotoInput');
+  if (fi) fi.value = '';
+  syncProfilePreview();
+  toast('Foto removida. Salve para confirmar.', 'warning');
+});
+
+// Save profile
 document.getElementById('btnSalvarProfile')?.addEventListener('click', async () => {
   const d = {
-    nome:     document.getElementById('profileNome').value.trim(),
-    sobrenome:document.getElementById('profileSob').value.trim(),
-    email:    document.getElementById('profileEmail').value.trim(),
-    cargo:    document.getElementById('profileCargo').value.trim(),
-    empresa:  document.getElementById('profileEmpresa').value.trim(),
-    color:    document.getElementById('profileColor').value,
+    nome:      document.getElementById('profileNome').value.trim(),
+    sobrenome: document.getElementById('profileSob').value.trim(),
+    email:     document.getElementById('profileEmail').value.trim(),
+    cargo:     document.getElementById('profileCargo').value.trim(),
+    empresa:   document.getElementById('profileEmpresa').value.trim(),
+    color:     document.getElementById('profileColor').value,
   };
   if (!d.nome) { toast('Informe o nome', 'error'); return; }
+  // apply pending photo change
+  if (_pendingPhoto !== null) d.photo = _pendingPhoto;
   await api.updateProfile(d);
+  _pendingPhoto = null;
   renderProfileChip();
   toast('Perfil atualizado!');
   closeModal('modalProfile');
