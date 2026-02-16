@@ -1,39 +1,28 @@
-// ══════════════════════════════════════════════
-//  CRONOS — script_landing.js
-// ══════════════════════════════════════════════
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ── CURSOR ──
+  // CURSOR
   const cur  = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
-
   if (cur && ring) {
     let mx = 0, my = 0, rx = 0, ry = 0;
-
     document.addEventListener('mousemove', e => {
-      mx = e.clientX;
-      my = e.clientY;
-      cur.style.left = mx + 'px';
-      cur.style.top  = my + 'px';
+      mx = e.clientX; my = e.clientY;
+      cur.style.left = mx + 'px'; cur.style.top = my + 'px';
     });
-
     function animRing() {
-      rx += (mx - rx) * .12;
-      ry += (my - ry) * .12;
-      ring.style.left = rx + 'px';
-      ring.style.top  = ry + 'px';
+      rx += (mx - rx) * .12; ry += (my - ry) * .12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
       requestAnimationFrame(animRing);
     }
     animRing();
-
     document.querySelectorAll('a, button').forEach(el => {
       el.addEventListener('mouseenter', () => { cur.classList.add('active');    ring.classList.add('active');    });
       el.addEventListener('mouseleave', () => { cur.classList.remove('active'); ring.classList.remove('active'); });
     });
   }
 
-  // ── NAV SCROLL ──
+  // NAV SCROLL
   const nav = document.getElementById('nav');
   if (nav) {
     window.addEventListener('scroll', () => {
@@ -41,24 +30,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ── WAVE BG ──
+  // WAVE BG
   const cv = document.getElementById('bg-canvas');
   if (cv) {
     const cx = cv.getContext('2d');
-
     function rs() { cv.width = window.innerWidth; cv.height = window.innerHeight; }
     rs();
     window.addEventListener('resize', rs);
-
     const ws = [
-      { a: 45, f: .010, sp: .014, ph: 0,   color: 'rgba(87,16,209,.65)',   y: .25 },
-      { a: 30, f: .016, sp: .020, ph: 1.4,  color: 'rgba(160,80,255,.42)',  y: .42 },
-      { a: 55, f: .008, sp: .010, ph: 2.6,  color: 'rgba(50,0,130,.55)',    y: .58 },
-      { a: 24, f: .020, sp: .028, ph: .8,   color: 'rgba(192,120,255,.28)', y: .72 },
-      { a: 40, f: .006, sp: .008, ph: 3.6,  color: 'rgba(75,8,160,.5)',     y: .85 },
-      { a: 18, f: .024, sp: .036, ph: 5.2,  color: 'rgba(130,40,220,.3)',   y: .95 },
+      { a:45, f:.010, sp:.014, ph:0,   color:'rgba(87,16,209,.65)',   y:.25 },
+      { a:30, f:.016, sp:.020, ph:1.4, color:'rgba(160,80,255,.42)',  y:.42 },
+      { a:55, f:.008, sp:.010, ph:2.6, color:'rgba(50,0,130,.55)',    y:.58 },
+      { a:24, f:.020, sp:.028, ph:.8,  color:'rgba(192,120,255,.28)', y:.72 },
+      { a:40, f:.006, sp:.008, ph:3.6, color:'rgba(75,8,160,.5)',     y:.85 },
+      { a:18, f:.024, sp:.036, ph:5.2, color:'rgba(130,40,220,.3)',   y:.95 },
     ];
-
     let t = 0;
     function draw() {
       cx.clearRect(0, 0, cv.width, cv.height);
@@ -87,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     draw();
   }
 
-  // ── MINI CHART ──
+  // MINI CHART
   const mc = document.getElementById('miniChart');
   if (mc) {
     const vals = [45, 62, 55, 80, 70, 88, 72, 95, 60, 85, 78, 100];
@@ -99,44 +85,36 @@ document.addEventListener('DOMContentLoaded', () => {
     }).join('');
   }
 
-  // ── CAROUSEL ──
+  // CAROUSEL
   const slides  = document.querySelectorAll('.carousel-slide');
   const track   = document.getElementById('carouselTrack');
   const dotsEl  = document.getElementById('ccDots');
   const btnPrev = document.getElementById('ccPrev');
   const btnNext = document.getElementById('ccNext');
-
   if (slides.length && track && dotsEl) {
     let current = 0;
     const total   = slides.length;
     const visible = 3;
-
     slides.forEach((s, i) => s.classList.toggle('active', i === 0));
-
     for (let i = 0; i < total; i++) {
       const d = document.createElement('div');
       d.className = 'cc-dot' + (i === 0 ? ' active' : '');
       d.onclick   = () => goSlide(i);
       dotsEl.appendChild(d);
     }
-
     function goSlide(n) {
       slides[current].classList.remove('active');
       current = ((n % total) + total) % total;
       slides[current].classList.add('active');
-
       const slideW = 344;
       const offset = Math.max(0, Math.min(current - 1, total - visible)) * slideW;
       track.style.transform = `translateX(-${offset}px)`;
-
       document.querySelectorAll('.cc-dot').forEach((d, i) =>
         d.classList.toggle('active', i === current)
       );
     }
-
     if (btnPrev) btnPrev.onclick = () => goSlide(current - 1);
     if (btnNext) btnNext.onclick = () => goSlide(current + 1);
-
     let autoTimer = setInterval(() => goSlide(current + 1), 3600);
     track.addEventListener('mouseenter', () => clearInterval(autoTimer));
     track.addEventListener('mouseleave', () => {
@@ -144,10 +122,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ── HOW IT WORKS ──
+  // HOW IT WORKS
   const steps  = document.querySelectorAll('.how-step');
   const panels = document.querySelectorAll('.visual-panel');
-
   if (steps.length) {
     steps.forEach(s => {
       s.addEventListener('click', () => {
@@ -157,7 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
         s.classList.add('active');
       });
     });
-
     let howIdx = 0;
     setInterval(() => {
       howIdx = (howIdx + 1) % steps.length;
@@ -165,70 +141,53 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 4000);
   }
 
-  // ── SCROLL REVEAL ──
+  // SCROLL REVEAL
   const revealObserver = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
   }, { threshold: .12 });
-
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-  // ── COUNT UP ANIMATION ──
+  // COUNT UP
   const numObserver = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (!e.isIntersecting) return;
-
       const el = e.target.querySelector('[data-target]');
       if (!el || el.dataset.done) return;
       el.dataset.done = '1';
-
       const target = +el.dataset.target;
       let start = 0;
       const dur  = 1800;
       const step = 16;
       const inc  = target / (dur / step);
-
-      const suffix = target === 3   ? '×'
-                   : target === 87  ? '%'
-                   : target === 40  ? '%'
-                   : target === 100 ? '%'
-                   : '';
-
+      const suffix = target === 3 ? '×' : '%';
       const timer = setInterval(() => {
         start = Math.min(start + inc, target);
         el.textContent = Math.round(start) + suffix;
         if (start >= target) clearInterval(timer);
       }, step);
-
       e.unobserve(e.target);
     });
   }, { threshold: .4 });
-
   document.querySelectorAll('.metric-card').forEach(c => numObserver.observe(c));
 
-  // ── AUTH MODAL: fechar ao clicar no overlay ──
+  // AUTH MODAL
   const overlay = document.getElementById('authOverlay');
   if (overlay) {
     overlay.addEventListener('click', e => {
       if (e.target === overlay) closeAuth();
     });
   }
-
-  // ── ESC fecha o modal ──
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAuth(); });
-
-  // ── TABS click ──
   document.querySelectorAll('.auth-tab').forEach(tab => {
     tab.addEventListener('click', () => switchTab(tab.dataset.tab));
   });
-
-  // ── Botão fechar ──
   const closeBtn = document.getElementById('authClose');
   if (closeBtn) closeBtn.addEventListener('click', closeAuth);
 
 }); // fim DOMContentLoaded
 
 // ══════════════════════════════════════════════
-//  AUTH — funções globais (chamadas via onclick)
+//  AUTH — funções globais
 // ══════════════════════════════════════════════
 
 function openAuth(tab = 'login') {
@@ -237,11 +196,10 @@ function openAuth(tab = 'login') {
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
   switchTab(tab);
-  // reset painel de redefinição
-  const rf = document.getElementById('resetForm');
-  const rs = document.getElementById('resetSuccess');
-  if (rf) rf.style.display = 'block';
-  if (rs) rs.classList.remove('show');
+  // Reset 2FA ao abrir
+  twofaShowStep('email');
+  const e1 = document.getElementById('resetEmail');
+  if (e1) { e1.value = ''; e1.style.borderColor = ''; }
 }
 
 function closeAuth() {
@@ -264,9 +222,9 @@ function showPanel(panelId) {
   document.querySelectorAll('.auth-panel').forEach(p => {
     p.classList.toggle('active', p.id === targetId);
   });
-  // ao ir para reset, remove destaque das tabs
   if (panelId === 'reset') {
     document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+    twofaShowStep('email');
   }
 }
 
@@ -287,7 +245,6 @@ function checkStrength(input) {
   if (/[A-Z]/.test(val))        score++;
   if (/[0-9]/.test(val))        score++;
   if (/[^A-Za-z0-9]/.test(val)) score++;
-
   const bars = ['sb1', 'sb2', 'sb3', 'sb4'];
   const cls  = score <= 1 ? 's1' : score <= 2 ? 's2' : 's3';
   bars.forEach((id, i) => {
@@ -297,22 +254,105 @@ function checkStrength(input) {
   });
 }
 
-function sendReset() {
-  const rf = document.getElementById('resetForm');
-  const rs = document.getElementById('resetSuccess');
-  if (rf) rf.style.display = 'none';
-  if (rs) rs.classList.add('show');
+// ROLE SELECTOR
+window._selectedRole = null;
+function selectRole(role, btn) {
+  document.querySelectorAll('.auth-role-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  window._selectedRole = role;
 }
 
-// ── ROLE SELECTOR ──
-// Tracks the currently selected role. Exposed on window for form submission access.
-window._selectedRole = null;
+// ══════════════════════════════════════════════
+//  2FA FLOW
+// ══════════════════════════════════════════════
 
-function selectRole(role, btn) {
-  // Deselect all role buttons
-  document.querySelectorAll('.auth-role-btn').forEach(b => b.classList.remove('selected'));
-  // Select the clicked one
-  btn.classList.add('selected');
-  // Store selection
-  window._selectedRole = role;
+function twofaShowStep(step) {
+  const steps = ['email', 'auth', 'approved', 'denied', 'done'];
+  steps.forEach(s => {
+    const el = document.getElementById('twofa-step-' + s);
+    if (el) el.style.display = (s === step) ? 'block' : 'none';
+  });
+}
+
+function startTwoFA() {
+  const email = document.getElementById('resetEmail');
+  if (email && !email.value.includes('@')) {
+    email.focus();
+    email.style.borderColor = 'var(--vermelho)';
+    email.style.boxShadow   = '0 0 0 3px rgba(255,94,126,.15)';
+    setTimeout(() => {
+      email.style.borderColor = '';
+      email.style.boxShadow   = '';
+    }, 1600);
+    return;
+  }
+  twofaShowStep('auth');
+}
+
+function backToEmail() {
+  twofaShowStep('email');
+}
+
+function handle2FA(result) {
+  if (result === 'approve') {
+    twofaShowStep('approved');
+    // limpa campos nova senha
+    const p1 = document.getElementById('newPw1');
+    const p2 = document.getElementById('newPw2');
+    if (p1) p1.value = '';
+    if (p2) p2.value = '';
+    const bars = ['sb2-1','sb2-2','sb2-3','sb2-4'];
+    bars.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.className = 'auth-strength-bar';
+    });
+  } else {
+    twofaShowStep('denied');
+  }
+}
+
+function retryTwoFA() {
+  twofaShowStep('auth');
+}
+
+function confirmNewPw() {
+  const p1 = document.getElementById('newPw1');
+  const p2 = document.getElementById('newPw2');
+  if (!p1 || !p2) return;
+
+  // valida comprimento
+  if (p1.value.length < 8) {
+    p1.focus();
+    p1.style.borderColor = 'var(--vermelho)';
+    p1.style.boxShadow   = '0 0 0 3px rgba(255,94,126,.15)';
+    setTimeout(() => { p1.style.borderColor = ''; p1.style.boxShadow = ''; }, 1600);
+    return;
+  }
+
+  // valida confirmação
+  if (p1.value !== p2.value) {
+    p2.focus();
+    p2.style.borderColor = 'var(--vermelho)';
+    p2.style.boxShadow   = '0 0 0 3px rgba(255,94,126,.15)';
+    setTimeout(() => { p2.style.borderColor = ''; p2.style.boxShadow = ''; }, 1600);
+    return;
+  }
+
+  twofaShowStep('done');
+}
+
+function checkStrength2(input) {
+  const val = input.value;
+  let score = 0;
+  if (val.length >= 8)          score++;
+  if (/[A-Z]/.test(val))        score++;
+  if (/[0-9]/.test(val))        score++;
+  if (/[^A-Za-z0-9]/.test(val)) score++;
+  const bars = ['sb2-1','sb2-2','sb2-3','sb2-4'];
+  const cls  = score <= 1 ? 's1' : score <= 2 ? 's2' : 's3';
+  bars.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.className = 'auth-strength-bar' + (i < score ? ' ' + cls : '');
+  });
 }

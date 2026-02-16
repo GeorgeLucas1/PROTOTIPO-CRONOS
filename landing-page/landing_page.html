@@ -14,7 +14,7 @@
 <div class="cursor-ring" id="cursorRing"></div>
 <canvas id="bg-canvas"></canvas>
 
-<!-- ══════════ AUTH MODAL ══════════ -->
+<!-- AUTH MODAL -->
 <div class="auth-overlay" id="authOverlay">
   <div class="auth-modal" id="authModal" role="dialog" aria-modal="true">
 
@@ -40,11 +40,10 @@
       <button class="auth-tab" data-tab="register">Cadastrar</button>
     </div>
 
-    <!-- ── PANEL: LOGIN ── -->
+    <!-- PANEL: LOGIN -->
     <div class="auth-panel active" id="panelLogin">
       <div class="auth-title">Bem-vindo de volta</div>
       <div class="auth-sub">Acesse seu painel e continue de onde parou.</div>
-
       <div class="auth-field">
         <label class="auth-label">E-mail</label>
         <div class="auth-input-wrap">
@@ -52,7 +51,6 @@
           <input class="auth-input" type="email" placeholder="seu@email.com" autocomplete="email"/>
         </div>
       </div>
-
       <div class="auth-field">
         <label class="auth-label">Senha</label>
         <div class="auth-input-wrap">
@@ -64,32 +62,21 @@
         </div>
         <button class="auth-forgot" type="button" onclick="showPanel('reset')">Esqueceu a senha?</button>
       </div>
-
       <button class="auth-submit" type="button">Entrar no Cronos</button>
-
       <div class="auth-divider"><span>ou</span></div>
-      <div class="auth-switch">
-        Não tem conta?
-        <button class="auth-switch-link" onclick="switchTab('register')">Cadastre-se grátis</button>
-      </div>
+      <div class="auth-switch">Não tem conta? <button class="auth-switch-link" onclick="switchTab('register')">Cadastre-se grátis</button></div>
     </div>
 
-    <!-- ── PANEL: REGISTER ── -->
+    <!-- PANEL: REGISTER -->
     <div class="auth-panel" id="panelRegister">
       <div class="auth-title">Criar conta</div>
       <div class="auth-sub">Comece a usar Cronos gratuitamente. Sem cartão.</div>
-
-      <!-- ══ ROLE SELECTOR ══ -->
       <div class="auth-field">
         <label class="auth-label">Você é um…</label>
         <div class="auth-role-group" id="roleGroup">
-
           <button class="auth-role-btn" type="button" data-role="employee" onclick="selectRole('employee', this)">
             <span class="auth-role-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-                <circle cx="12" cy="7" r="4"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             </span>
             <span class="auth-role-text">
               <span class="auth-role-title">Funcionário</span>
@@ -99,15 +86,9 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
             </span>
           </button>
-
           <button class="auth-role-btn" type="button" data-role="manager" onclick="selectRole('manager', this)">
             <span class="auth-role-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="7" width="20" height="14" rx="2"/>
-                <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
-                <line x1="12" y1="12" x2="12" y2="16"/>
-                <line x1="10" y1="14" x2="14" y2="14"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
             </span>
             <span class="auth-role-text">
               <span class="auth-role-title">Gerente</span>
@@ -117,11 +98,8 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
             </span>
           </button>
-
         </div>
       </div>
-      <!-- ══ END ROLE SELECTOR ══ -->
-
       <div class="auth-field">
         <label class="auth-label">Nome completo</label>
         <div class="auth-input-wrap">
@@ -129,7 +107,6 @@
           <input class="auth-input" type="text" placeholder="Seu nome" autocomplete="name"/>
         </div>
       </div>
-
       <div class="auth-field">
         <label class="auth-label">E-mail</label>
         <div class="auth-input-wrap">
@@ -137,13 +114,12 @@
           <input class="auth-input" type="email" placeholder="seu@email.com" autocomplete="email"/>
         </div>
       </div>
-
       <div class="auth-field">
         <label class="auth-label">Senha</label>
         <div class="auth-input-wrap">
           <svg class="auth-input-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
           <input class="auth-input" type="password" id="regPw" placeholder="Mínimo 8 caracteres" autocomplete="new-password" oninput="checkStrength(this)"/>
-          <button class="auth-eye" type="button" onclick="togglePw('regPw',this)" aria-label="Mostrar senha">
+          <button class="auth-eye" type="button" onclick="togglePw('regPw',this)">
             <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           </button>
         </div>
@@ -154,59 +130,169 @@
           <div class="auth-strength-bar" id="sb4"></div>
         </div>
       </div>
-
       <div class="auth-field">
         <div class="auth-check-row">
           <input type="checkbox" class="auth-check" id="terms"/>
           <label class="auth-check-label" for="terms">Concordo com os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a></label>
         </div>
       </div>
-
       <button class="auth-submit" type="button">Criar Conta Grátis</button>
-
       <div class="auth-divider"><span>ou</span></div>
-      <div class="auth-switch">
-        Já tem conta?
-        <button class="auth-switch-link" onclick="switchTab('login')">Entrar agora</button>
-      </div>
+      <div class="auth-switch">Já tem conta? <button class="auth-switch-link" onclick="switchTab('login')">Entrar agora</button></div>
     </div>
 
-    <!-- ── PANEL: RESET ── -->
+    <!-- PANEL: RESET / 2FA -->
     <div class="auth-panel" id="panelReset">
-      <div id="resetForm">
-        <div class="auth-title">Redefinir senha</div>
-        <div class="auth-sub">Informe seu e-mail e enviaremos um link de redefinição em instantes.</div>
 
+      <!-- STEP 1: e-mail -->
+      <div id="twofa-step-email">
+        <div class="auth-title">Verificação de identidade</div>
+        <div class="auth-sub">Informe seu e-mail para iniciar a autenticação em dois fatores.</div>
         <div class="auth-field">
           <label class="auth-label">E-mail cadastrado</label>
           <div class="auth-input-wrap">
             <svg class="auth-input-icon" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            <input class="auth-input" type="email" placeholder="seu@email.com" autocomplete="email"/>
+            <input class="auth-input" type="email" id="resetEmail" placeholder="seu@email.com" autocomplete="email"/>
           </div>
         </div>
-
-        <button class="auth-submit" type="button" onclick="sendReset()">Enviar link de redefinição</button>
-
+        <button class="auth-submit" type="button" onclick="startTwoFA()">Continuar com 2FA →</button>
         <div class="auth-divider"><span>ou</span></div>
-        <div class="auth-switch">
-          <button class="auth-switch-link" onclick="showPanel('login')">← Voltar ao login</button>
+        <div class="auth-switch"><button class="auth-switch-link" onclick="showPanel('login')">← Voltar ao login</button></div>
+      </div>
+
+      <!-- STEP 2: Authenticator -->
+      <div id="twofa-step-auth" style="display:none;">
+        <div class="auth-title">Autenticação em dois fatores</div>
+        <div class="auth-sub">Abra o aplicativo autenticador e aprove a solicitação de acesso.</div>
+        <div class="twofa-app-wrap">
+          <div class="twofa-phone">
+            <div class="twofa-phone-notch"></div>
+            <div class="twofa-phone-screen">
+              <div class="twofa-app-header">
+                <div class="twofa-app-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+                </div>
+                <span class="twofa-app-name">Authenticator</span>
+              </div>
+              <div class="twofa-notif">
+                <div class="twofa-notif-logo">
+                  <svg viewBox="0 0 38 38" fill="none" width="20" height="20">
+                    <circle cx="19" cy="19" r="15" stroke="#fff7ab" stroke-width="1.5" stroke-dasharray="4 3"/>
+                    <circle cx="19" cy="19" r="8" stroke="#a86dff" stroke-width="1.5"/>
+                    <circle cx="19" cy="19" r="2.5" fill="#fff7ab"/>
+                  </svg>
+                </div>
+                <div class="twofa-notif-content">
+                  <div class="twofa-notif-title">Cronos solicita acesso</div>
+                  <div class="twofa-notif-sub">Redefinição de senha</div>
+                </div>
+              </div>
+              <div class="twofa-action-prompt">
+                <div class="twofa-pulse-ring"></div>
+                <div class="twofa-lock-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="26" height="26"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                </div>
+                <div class="twofa-waiting-text">Aguardando aprovação<span class="twofa-dots"><span>.</span><span>.</span><span>.</span></span></div>
+              </div>
+              <div class="twofa-btn-group">
+                <button class="twofa-deny-btn" onclick="handle2FA('deny')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="11" height="11"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  Recusar
+                </button>
+                <button class="twofa-approve-btn" onclick="handle2FA('approve')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="11" height="11"><polyline points="20 6 9 17 4 12"/></svg>
+                  Aprovar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="twofa-hint">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="13" height="13"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Use Google Authenticator, Authy ou Microsoft Authenticator
+        </div>
+        <div class="auth-divider"><span>ou</span></div>
+        <div class="auth-switch"><button class="auth-switch-link" onclick="backToEmail()">← Usar outro e-mail</button></div>
+      </div>
+
+      <!-- STEP 3a: APROVADO -->
+      <div id="twofa-step-approved" style="display:none;">
+        <div class="twofa-result twofa-result-success">
+          <div class="twofa-result-ring twofa-ring-success"></div>
+          <div class="twofa-result-icon twofa-icon-success">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#4fffb0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="32" height="32"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="twofa-result-badge twofa-badge-success">✦ IDENTIDADE VERIFICADA</div>
+          <div class="twofa-result-title twofa-title-success">Parabéns! Acesso aprovado.</div>
+          <div class="twofa-result-text">Sua identidade foi confirmada com sucesso. Agora você pode redefinir sua senha.</div>
+          <div class="twofa-new-pw-wrap">
+            <div class="auth-field" style="text-align:left;margin-bottom:.8rem">
+              <label class="auth-label">Nova senha</label>
+              <div class="auth-input-wrap">
+                <svg class="auth-input-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                <input class="auth-input" type="password" id="newPw1" placeholder="Mínimo 8 caracteres" oninput="checkStrength2(this)"/>
+                <button class="auth-eye" type="button" onclick="togglePw('newPw1',this)">
+                  <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+              <div class="auth-strength" id="strengthBars2">
+                <div class="auth-strength-bar" id="sb2-1"></div>
+                <div class="auth-strength-bar" id="sb2-2"></div>
+                <div class="auth-strength-bar" id="sb2-3"></div>
+                <div class="auth-strength-bar" id="sb2-4"></div>
+              </div>
+            </div>
+            <div class="auth-field" style="text-align:left;margin-bottom:.8rem">
+              <label class="auth-label">Confirmar nova senha</label>
+              <div class="auth-input-wrap">
+                <svg class="auth-input-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                <input class="auth-input" type="password" id="newPw2" placeholder="Repita a nova senha"/>
+              </div>
+            </div>
+            <button class="auth-submit" type="button" onclick="confirmNewPw()">Salvar nova senha</button>
+          </div>
         </div>
       </div>
 
-      <div class="auth-success" id="resetSuccess">
-        <div class="auth-success-icon">
-          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      <!-- STEP 3b: RECUSADO -->
+      <div id="twofa-step-denied" style="display:none;">
+        <div class="twofa-result twofa-result-denied">
+          <div class="twofa-result-ring twofa-ring-denied"></div>
+          <div class="twofa-result-icon twofa-icon-denied">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ff5e7e" stroke-width="2.5" stroke-linecap="round" width="32" height="32"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </div>
+          <div class="twofa-result-badge twofa-badge-denied">⚠ ACESSO NEGADO</div>
+          <div class="twofa-result-title twofa-title-denied">Solicitação recusada.</div>
+          <div class="twofa-result-text">A verificação foi recusada no aplicativo. Se não foi você, sua conta está segura. Tente novamente caso necessário.</div>
+          <div class="twofa-denied-actions">
+            <button class="auth-submit twofa-retry-btn" type="button" onclick="retryTwoFA()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="14" height="14"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+              Tentar novamente
+            </button>
+            <button class="auth-switch-link" onclick="showPanel('login')" style="display:block;margin-top:.9rem;font-size:.8rem">← Voltar ao login</button>
+          </div>
         </div>
-        <div class="auth-success-title">Link enviado!</div>
-        <div class="auth-success-text">Verifique sua caixa de entrada. O link expira em 30 minutos.</div>
-        <button class="auth-back-link" onclick="showPanel('login')">← Voltar ao login</button>
       </div>
-    </div>
 
+      <!-- STEP 4: SENHA SALVA -->
+      <div id="twofa-step-done" style="display:none;">
+        <div class="twofa-result twofa-result-success">
+          <div class="twofa-result-ring twofa-ring-success"></div>
+          <div class="twofa-result-icon twofa-icon-success">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#4fffb0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="32" height="32"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="twofa-result-badge twofa-badge-success">✦ SENHA ATUALIZADA</div>
+          <div class="twofa-result-title twofa-title-success">Tudo certo!</div>
+          <div class="twofa-result-text">Sua senha foi redefinida com sucesso. Faça login com suas novas credenciais.</div>
+          <button class="auth-submit" type="button" onclick="showPanel('login')" style="margin-top:1.2rem">Ir para o login →</button>
+        </div>
+      </div>
+
+    </div><!-- /panelReset -->
   </div>
 </div>
 
-<!-- ══════════ NAV ══════════ -->
+<!-- NAV -->
 <nav id="nav">
   <a class="nav-logo" href="#">
     <svg class="nav-ring" viewBox="0 0 38 38" fill="none">
@@ -232,15 +318,13 @@
   </div>
 </nav>
 
-<!-- ══════════ HERO ══════════ -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero-eyebrow">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
     USANDO O TEMPO AO SEU FAVOR
   </div>
-  <h1 class="hero-title">
-    Gerencie projetos<span>com inteligência.</span>
-  </h1>
+  <h1 class="hero-title">Gerencie projetos<span>com inteligência.</span></h1>
   <p class="hero-sub">Cronos combina gestão de projetos com análise preditiva baseada em IA — prevendo atrasos, calculando desvios e mantendo sua equipe sempre à frente do prazo.</p>
   <div class="hero-actions">
     <button class="btn-hero btn-hero-primary" onclick="openAuth('register')">
@@ -267,7 +351,7 @@
   </div>
 </section>
 
-<!-- ══════════ FEATURES ══════════ -->
+<!-- FEATURES -->
 <section class="features" id="features">
   <div class="features-header reveal">
     <div class="section-label">✦ Funcionalidades</div>
@@ -283,13 +367,11 @@
       <div class="bento-glow"></div>
     </div>
     <div class="bento-card bc-2 reveal reveal-delay-1" style="--card-accent:var(--verde)">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <div>
-          <div class="bento-icon bi-green"><svg viewBox="0 0 24 24"><polyline points="3 17 8 11 12 14 18 7 21 10"/><line x1="3" y1="21" x2="21" y2="21"/></svg></div>
-          <div class="bento-title">Velocidade da Equipe</div>
-          <div class="bento-desc">Acompanhe o esforço estimado versus o real por projeto, sprint a sprint — e identifique gargalos antes que afetem a entrega.</div>
-        </div>
-      </div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start"><div>
+        <div class="bento-icon bi-green"><svg viewBox="0 0 24 24"><polyline points="3 17 8 11 12 14 18 7 21 10"/><line x1="3" y1="21" x2="21" y2="21"/></svg></div>
+        <div class="bento-title">Velocidade da Equipe</div>
+        <div class="bento-desc">Acompanhe o esforço estimado versus o real por projeto, sprint a sprint — e identifique gargalos antes que afetem a entrega.</div>
+      </div></div>
       <div class="mini-chart-mock" id="miniChart"></div>
       <div class="bento-glow" style="background:var(--verde)"></div>
     </div>
@@ -339,7 +421,7 @@
   </div>
 </section>
 
-<!-- ══════════ CAROUSEL ══════════ -->
+<!-- CAROUSEL -->
 <section class="carousel-section" id="carousel">
   <div class="carousel-header reveal">
     <div class="section-label">✦ Inteligência Preditiva</div>
@@ -392,7 +474,7 @@
   </div>
 </section>
 
-<!-- ══════════ COMO FUNCIONA ══════════ -->
+<!-- COMO FUNCIONA -->
 <section class="how" id="como">
   <div class="how-inner">
     <div>
@@ -479,38 +561,19 @@
   </div>
 </section>
 
-<!-- ══════════ MÉTRICAS ══════════ -->
+<!-- MÉTRICAS -->
 <section class="metrics" id="metricas">
   <div class="section-label reveal" style="justify-content:center">✦ Impacto Real</div>
   <h2 class="section-title reveal" style="text-align:center">Números que <em>importam</em></h2>
   <div class="metrics-grid">
-    <div class="metric-card reveal" style="--mc-color:var(--verde)">
-      <div class="metric-num" data-target="87">0</div>
-      <div class="metric-label">% Precisão Preditiva</div>
-      <div class="metric-trend mt-up">↑ Baseado em histórico real</div>
-      <div class="metric-glow"></div>
-    </div>
-    <div class="metric-card reveal reveal-delay-1" style="--mc-color:var(--dourado)">
-      <div class="metric-num" data-target="40">0</div>
-      <div class="metric-label">% Menos Atrasos</div>
-      <div class="metric-trend mt-up">↑ Com alertas ativos</div>
-      <div class="metric-glow"></div>
-    </div>
-    <div class="metric-card reveal reveal-delay-2" style="--mc-color:var(--azul)">
-      <div class="metric-num" data-target="3">0</div>
-      <div class="metric-label">× Mais Visibilidade</div>
-      <div class="metric-trend mt-up">↑ Dashboard centralizado</div>
-      <div class="metric-glow"></div>
-    </div>
-    <div class="metric-card reveal reveal-delay-3" style="--mc-color:var(--neon)">
-      <div class="metric-num" data-target="100">0</div>
-      <div class="metric-label">% Gratuito pra todas empresas</div>
-      <div class="metric-glow"></div>
-    </div>
+    <div class="metric-card reveal" style="--mc-color:var(--verde)"><div class="metric-num" data-target="87">0</div><div class="metric-label">% Precisão Preditiva</div><div class="metric-trend mt-up">↑ Baseado em histórico real</div><div class="metric-glow"></div></div>
+    <div class="metric-card reveal reveal-delay-1" style="--mc-color:var(--dourado)"><div class="metric-num" data-target="40">0</div><div class="metric-label">% Menos Atrasos</div><div class="metric-trend mt-up">↑ Com alertas ativos</div><div class="metric-glow"></div></div>
+    <div class="metric-card reveal reveal-delay-2" style="--mc-color:var(--azul)"><div class="metric-num" data-target="3">0</div><div class="metric-label">× Mais Visibilidade</div><div class="metric-trend mt-up">↑ Dashboard centralizado</div><div class="metric-glow"></div></div>
+    <div class="metric-card reveal reveal-delay-3" style="--mc-color:var(--neon)"><div class="metric-num" data-target="100">0</div><div class="metric-label">% Gratuito pra todas empresas</div><div class="metric-glow"></div></div>
   </div>
 </section>
 
-<!-- ══════════ DEPOIMENTOS ══════════ -->
+<!-- DEPOIMENTOS -->
 <section class="testimonials" id="depoimentos">
   <div style="text-align:center">
     <div class="section-label reveal" style="justify-content:center">✦ Depoimentos</div>
@@ -519,50 +582,33 @@
   <div class="test-grid">
     <div class="test-card reveal">
       <div class="test-quote">Finalmente um dashboard de projetos que não me faz perder tempo — as previsões automáticas salvaram nosso sprint do trimestre.</div>
-      <div class="test-author">
-        <div class="test-ava" style="background:linear-gradient(135deg,#8b00e8,#5710d1)">GL</div>
-        <div><div class="test-name">George L.</div><div class="test-role">Tech Lead · Cronos</div></div>
-        <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-      </div>
+      <div class="test-author"><div class="test-ava" style="background:linear-gradient(135deg,#8b00e8,#5710d1)">GL</div><div><div class="test-name">George L.</div><div class="test-role">Tech Lead · Cronos</div></div><div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></div>
     </div>
     <div class="test-card reveal reveal-delay-1">
       <div class="test-quote">A visualização de velocidade por projeto me ajudou a identificar que nossa equipe de mobile estava consistentemente subestimando as tarefas.</div>
-      <div class="test-author">
-        <div class="test-ava" style="background:linear-gradient(135deg,#0070e8,#00b4d8)">AK</div>
-        <div><div class="test-name">Ana K.</div><div class="test-role">Dev Frontend</div></div>
-        <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-      </div>
+      <div class="test-author"><div class="test-ava" style="background:linear-gradient(135deg,#0070e8,#00b4d8)">AK</div><div><div class="test-name">Ana K.</div><div class="test-role">Dev Frontend</div></div><div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></div>
     </div>
     <div class="test-card reveal reveal-delay-2">
       <div class="test-quote">O board Kanban integrado com as previsões de risco mudou como conduzimos nossas retrospectivas. Dados concretos em vez de achismo.</div>
-      <div class="test-author">
-        <div class="test-ava" style="background:linear-gradient(135deg,#00a855,#4fffb0)">LM</div>
-        <div><div class="test-name">Lucas M.</div><div class="test-role">Dev Backend</div></div>
-        <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-      </div>
+      <div class="test-author"><div class="test-ava" style="background:linear-gradient(135deg,#00a855,#4fffb0)">LM</div><div><div class="test-name">Lucas M.</div><div class="test-role">Dev Backend</div></div><div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></div>
     </div>
   </div>
 </section>
 
-<!-- ══════════ CTA ══════════ -->
+<!-- CTA -->
 <section class="cta-section" id="cta">
   <div class="cta-ring"></div><div class="cta-ring"></div><div class="cta-ring"></div>
   <div class="cta-content reveal">
     <div class="section-label" style="justify-content:center;margin-bottom:1.2rem">✦ Pronto para começar?</div>
     <h2 class="cta-title">Leve seus projetos para<br><span>outro nível agora</span></h2>
     <div class="cta-actions">
-      <button class="btn-hero btn-hero-primary" onclick="openAuth('register')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Criar conta grátis
-      </button>
-      <button class="btn-hero btn-hero-ghost" onclick="openAuth('login')">
-        Já tenho conta
-      </button>
+      <button class="btn-hero btn-hero-primary" onclick="openAuth('register')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Criar conta grátis</button>
+      <button class="btn-hero btn-hero-ghost" onclick="openAuth('login')">Já tenho conta</button>
     </div>
   </div>
 </section>
 
-<!-- ══════════ FOOTER ══════════ -->
+<!-- FOOTER -->
 <footer>
   <div class="footer-brand">CRONOS</div>
   <div class="footer-copy">© 2026 Cronos.</div>
