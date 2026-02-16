@@ -1,3 +1,6 @@
+// ══════════════════════════════════════════════
+//  CRONOS — script_landing.js
+// ══════════════════════════════════════════════
 
 document.addEventListener('DOMContentLoaded', () => {
 
